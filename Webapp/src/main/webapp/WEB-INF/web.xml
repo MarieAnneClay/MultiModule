@@ -26,24 +26,26 @@
 	
 	<context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:**/*.xml
+        <param-value>/WEB-INF/classes/database-context.xml
+        /WEB-INF/classes/servlet-context.xml
+        /WEB-INF/classes/security-context.xml
         </param-value>
 	</context-param>
 
-<!-- 	<error-page> -->
-<!-- 	<error-code>403</error-code> -->
-<!-- 	<location>/WEB-INF/staticPage/403.jsp</location> -->
-<!-- 	</error-page> -->
+	<error-page>
+	<error-code>403</error-code>
+	<location>/WEB-INF/staticPage/403.jsp</location>
+	</error-page>
 
-<!-- 	<error-page> -->
-<!-- 	<error-code>404</error-code> -->
-<!-- 	<location>/WEB-INF/staticPage/404.jsp</location> -->
-<!-- 	</error-page> -->
+	<error-page>
+	<error-code>404</error-code>
+	<location>/WEB-INF/staticPage/404.jsp</location>
+	</error-page>
 
-<!-- 	<error-page> -->
-<!-- 	<error-code>500</error-code> -->
-<!-- 	<location>/WEB-INF/staticPage/500.jsp</location> -->
-<!-- 	</error-page> -->
+	<error-page>
+	<error-code>500</error-code>
+	<location>/WEB-INF/staticPage/500.jsp</location>
+	</error-page>
 <!-- 	<filter> -->
 <!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
 <!-- 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> -->
@@ -65,7 +67,7 @@
         </servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:*servlet-application.xml</param-value>
+            <param-value>/WEB-INF/classes/servlet-context.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -77,12 +79,12 @@
 	</servlet-mapping>
 	
 	<!-- Loads Spring Security config file -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			classpath:*security-context.xml
-		</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>contextConfigLocation</param-name> -->
+<!-- 		<param-value> -->
+<!-- 			classpath:*security-context.xml -->
+<!-- 		</param-value> -->
+<!-- 	</context-param> -->
 
 	<!-- Spring Security -->
 	<filter>

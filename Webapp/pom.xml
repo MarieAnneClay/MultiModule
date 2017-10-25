@@ -31,11 +31,16 @@
 
 		<!-- SPRING -->
 		<spring-version>5.0.0.RELEASE</spring-version>
-		<spring.security.version>3.2.3.RELEASE</spring.security.version>
+		<spring.security.version>4.2.2.RELEASE</spring.security.version>
 		<hibernate.version>5.1.3.Final</hibernate.version>
 
 	</properties>
 	<dependencies>
+<!-- 	<dependency> -->
+<!--     <groupId>org.springframework</groupId> -->
+<!--     <artifactId>spring-expression</artifactId> -->
+<!--     <version>4.2.5.RELEASE</version> -->
+<!-- </dependency> -->
 			<!-- Log -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -68,12 +73,24 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>${spring.security.version}</version>
+						<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring.security.version}</version>
+						<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Spring Security JSP Taglib -->
@@ -81,6 +98,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security.version}</version>
+						<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Commons -->
