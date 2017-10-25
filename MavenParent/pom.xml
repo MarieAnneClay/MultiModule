@@ -10,6 +10,7 @@
       <module>../Persistence</module>
       <module>../Service</module>
       <module>../Binding</module>
+      <module>../Console</module>
       <module>../Webapp</module>
   </modules>
 </project>
