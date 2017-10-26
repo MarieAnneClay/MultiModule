@@ -46,6 +46,11 @@
 	<error-code>500</error-code>
 	<location>/WEB-INF/staticPage/500.jsp</location>
 	</error-page>
+		<error-page>
+	<error-code>401</error-code>
+	<location>/WEB-INF/staticPage/401.jsp</location>
+	</error-page>
+	
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

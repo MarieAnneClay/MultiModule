@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Formula;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,7 +40,7 @@ public class Computer {
 
     @Nullable
     @Formula("(SELECT c.name FROM company c WHERE c.id = company_id)")
-    @Cascade(CascadeType.REFRESH)
+    // @Cascade(CascadeType.REFRESH)
     private String companyName;
 
     /** DEFAULT CONSTRUCTOR. */

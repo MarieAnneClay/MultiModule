@@ -41,12 +41,12 @@
 				: <a href="?lang=en"><spring:message code="label.en" /></a> | <a
 					href="?lang=fr"><spring:message code="label.fr" /></a>
 
-					<c:if test="${pageContext.request.userPrincipal.name != null}">
-						<h2>
-							User : ${pageContext.request.userPrincipal.name} | <a
-								href="<c:url value="/logout" />"> Logout</a>
-						</h2>
-					</c:if>
+<%-- 					<c:if test="${pageContext.request.userPrincipal.name != null}"> --%>
+<!-- 						<h2> -->
+<%-- 							User : ${pageContext.request.userPrincipal.name} | <a --%>
+<%-- 								href="<c:url value="/logout" />"> Logout</a> --%>
+<!-- 						</h2> -->
+<%-- 					</c:if> --%>
 
 			</div>
 		</div>
