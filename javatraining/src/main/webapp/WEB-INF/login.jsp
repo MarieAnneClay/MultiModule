@@ -51,7 +51,7 @@
 		</c:if>
 
 		<form name='loginForm'
-		  action="<c:url value='/' />" method='GET'>
+		  action="<c:url value='/' />" method='POST'>
 
 		<table>
 			<tr>

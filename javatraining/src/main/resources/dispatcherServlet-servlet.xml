@@ -14,7 +14,7 @@
 	<!-- <beans:bean -->
 	<!-- class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></beans:bean> -->
 	<context:component-scan base-package="service" />
-	<context:component-scan base-package="DTO" />
+
 	<context:component-scan base-package="controller" />
 
 	<bean id="viewResolver"

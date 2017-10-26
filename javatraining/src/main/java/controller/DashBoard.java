@@ -35,10 +35,10 @@ public class DashBoard {
         this.serviceCompany = serviceCompany;
     }
 
-    @RequestMapping(value = { "", "/", "/dashboard" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "", "/", "/dashboard" }/* , method = RequestMethod.GET */)
     public String listOfComputers(ModelMap map, @RequestParam(value = "search", defaultValue = "") String search,
             @RequestParam(value = "numberOfComputerByPage", defaultValue = "10") int numberOfComputerByPage, @RequestParam(value = "currentPage", defaultValue = "0") int currentPage,
-            @RequestParam(value = "sort", defaultValue = "name") String sort, @RequestParam(value = "order", defaultValue = "ASC") String order) {
+            @RequestParam(value = "sort", defaultValue = "name") String sort, @RequestParam(value = "order", defaultValue = "DESC") String order) {
         map.addAttribute("search", search);
         map.addAttribute("numberOfComputerByPage", numberOfComputerByPage);
         map.addAttribute("currentPage", currentPage);
@@ -50,6 +50,7 @@ public class DashBoard {
         return VIEW;
     }
 
+    // @Path("/secure/delete/{id}")
     @RequestMapping(value = { "/dashboard" }, method = RequestMethod.POST)
     public String deleteComputers(@RequestParam(value = "selection") String idsSelects) throws ServletException {
         serviceComputer.deleteComputer(idsSelects);
@@ -73,8 +74,9 @@ public class DashBoard {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
+            return "redirect:/";
         }
-        return "redirect:/login?logout";
+        return "redirect:/";
     }
 
 }

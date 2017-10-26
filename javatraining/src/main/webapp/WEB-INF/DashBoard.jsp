@@ -31,14 +31,9 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 					class="btn btn-success" id="addComputer"> <spring:message
 						code="label.add" />
 				</a>
-				<%-- 				<c:if test="${pageContext.request.role == 'ADMIN'}"> --%>
 
-				<!-- 					<a class="btn btn-default" id="editComputer" href="#" -->
-				<!-- 						onclick="$.fn.toggleEditMode();">View</a> -->
 
-				<%-- 				</c:if> --%>
-
-<%-- 				<security:authorize access="hasRole('ADMIN')"> --%>
+<%-- 				<security:authorize access="hasRole('ROLE_ADMIN')"> --%>
 					<a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">View</a>
 <%-- 				</security:authorize> --%>

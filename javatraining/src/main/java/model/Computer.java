@@ -21,7 +21,6 @@ import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "computer")
-// @SecondaryTables({ @SecondaryTable(name = "company") })
 public class Computer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,16 +39,11 @@ public class Computer {
     @Nullable
     @Column(name = "company_id")
     private Long companyId;
-    // @JoinColumn(name = "name", referencedColumnName = "name", insertable = false,
-    // updatable = false)
-    // @Column(name = "name", table = "company")
+
     @Nullable
-    @Formula("(select c.name from company c where c.id = company_id)")
-    @Cascade(CascadeType.MERGE)
+    @Formula("(SELECT c.name FROM company c WHERE c.id = company_id)")
+    @Cascade(CascadeType.REFRESH)
     private String companyName;
-    // @Nullable
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // private Company company;
 
     /** DEFAULT CONSTRUCTOR. */
     public Computer() {
