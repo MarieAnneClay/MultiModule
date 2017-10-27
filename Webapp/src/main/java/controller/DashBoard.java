@@ -16,7 +16,7 @@ import service.ServiceComputer;
 import util.Page;
 
 @Controller
-@RequestMapping("/dashboard")
+
 public class DashBoard {
     private final ServiceComputer serviceComputer;
     private final ServiceCompany serviceCompany;
@@ -30,10 +30,10 @@ public class DashBoard {
         this.serviceCompany = serviceCompany;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = { "", "/", "/dashboard" }/* , method = RequestMethod.GET */)
     public String listOfComputers(ModelMap map, @RequestParam(value = "search", defaultValue = "") String search,
             @RequestParam(value = "numberOfComputerByPage", defaultValue = "10") int numberOfComputerByPage, @RequestParam(value = "currentPage", defaultValue = "0") int currentPage,
-            @RequestParam(value = "sort", defaultValue = "name") String sort, @RequestParam(value = "order", defaultValue = "ASC") String order) {
+            @RequestParam(value = "sort", defaultValue = "name") String sort, @RequestParam(value = "order", defaultValue = "DESC") String order) {
         map.addAttribute("search", search);
         map.addAttribute("numberOfComputerByPage", numberOfComputerByPage);
         map.addAttribute("currentPage", currentPage);
@@ -45,11 +45,35 @@ public class DashBoard {
         return VIEW;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    // @Path("/secure/delete/{id}")
+    // @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = { "/deleted" }, method = RequestMethod.POST)
     public String deleteComputers(@RequestParam(value = "selection") String idsSelects) throws ServletException {
         serviceComputer.deleteComputer(idsSelects);
         return "redirect:/" + VIEW_HOME;
 
     }
+
+    // @RequestMapping(value = "/login?error", method = RequestMethod.GET)
+    // public String accessDeniedPage(ModelMap model) {
+    // // model.addAttribute("user", getPrincipal());
+    // return "login";
+    // }
+    //
+    // @RequestMapping(value = "/login", method = RequestMethod.GET)
+    // public String loginPage() {
+    // return "login";
+    // }
+    //
+    // @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    // public String logoutPage(HttpServletRequest request, HttpServletResponse
+    // response) {
+    // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    // if (auth != null) {
+    // new SecurityContextLogoutHandler().logout(request, response, auth);
+    // return "redirect:/";
+    // }
+    // return "redirect:/";
+    // }
 
 }

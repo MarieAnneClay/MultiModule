@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/context/spring-context-3.2.xsd">
         
         
-<!--         <import resource="classpath*:/WEB-INF/lib/Persistence-4.5.2.jar/database-context.xml" /> -->
+        <import resource="classpath*:/WEB-INF/lib/Persistence-4.5.2.jar/database-context.xml" />
 
 	<!-- <beans:bean -->
 	<!-- class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></beans:bean> -->

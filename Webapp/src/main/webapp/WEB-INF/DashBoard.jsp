@@ -31,25 +31,21 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 					class="btn btn-success" id="addComputer"> <spring:message
 						code="label.add" />
 				</a>
-				<%-- 				<c:if test="${pageContext.request.role == 'ADMIN'}"> --%>
 
-				<!-- 					<a class="btn btn-default" id="editComputer" href="#" -->
-				<!-- 						onclick="$.fn.toggleEditMode();">View</a> -->
 
-				<%-- 				</c:if> --%>
-
-				<security:authorize access="hasRole('ADMIN') and isAuthenticated()">
+<%-- 				<security:authorize access="hasRole('ROLE_ADMIN')"> --%>
 					<a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">View</a>
-				</security:authorize>
+<%-- 				</security:authorize> --%>
 
 
 			</div>
 		</div>
 	</div>
 
-	<form id="deleteForm" action="#" method="POST">
+	<form id="deleteForm" action="deleted" method="POST">
 		<input type="hidden" name="selection" value="">
+<%-- 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 	</form>
 
 	<div class="container" style="margin-top: 10px;">
@@ -59,15 +55,17 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 					<!-- Variable declarations for passing labels as parameters -->
 					<!-- Table header for Computer Name -->
 
-					<th class="editMode" style="width: 60px; height: 22px;"><security:authorize
-							access="hasRole('ADMIN') and isAuthenticated()">
+					<th class="editMode" style="width: 60px; height: 22px;">
+<%-- 					<security:authorize --%>
+<%-- 							access="hasRole('ADMIN') and isAuthenticated()"> --%>
 							<input type="checkbox" id="selectall" />
 							<span style="vertical-align: top;"> - <a href="#"
 								id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 							</span>
-						</security:authorize></th>
+<%-- 						</security:authorize> --%>
+						</th>
 					<th><a ${paramsFromRequest.overrideParam("sort", "name")}
 						${paramsFromRequest.overrideParam("order", orderName)}
 						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Computer
@@ -83,7 +81,7 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Discontinued
 							date</a></th>
 					<th><a
-						${paramsFromRequest.overrideParam("sort", "company.name")}
+						${paramsFromRequest.overrideParam("sort", "companyName")}
 						${paramsFromRequest.overrideParam("order", orderCompany)}
 						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Company</a></th>
 
@@ -93,11 +91,13 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 			<tbody id="results">
 				<c:forEach items="${computers}" var="computer">
 					<tr>
-						<td class="editMode"><security:authorize
-								access="hasRole('ADMIN') and isAuthenticated()">
+						<td class="editMode">
+<%-- 						<security:authorize --%>
+<%-- 								access="hasRole('ADMIN') and isAuthenticated()"> --%>
 								<input type="checkbox" name="cb" class="cb"
 									value="${computer.id}">
-							</security:authorize></td>
+<%-- 							</security:authorize> --%>
+							</td>
 						<td><a
 							href="
 		   				<c:url value="/editcomputer">
@@ -107,7 +107,8 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 						</a></td>
 						<td>${computer.introduced}</td>
 						<td>${computer.discontinued}</td>
-						<td><c:out value="${computer.getCompanyId() == 0 ? "" : serviceCompany(computer.getCompanyId()).getName()}" /></td>
+						<td><c:out value="${computer.getCompanyName()}" /></td>
+<%-- 						<td><c:out value="${computer.getCompany().getName()}" /></td> --%>
 					</tr>
 				</c:forEach>
 			</tbody>
