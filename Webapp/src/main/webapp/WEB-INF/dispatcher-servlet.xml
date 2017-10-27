@@ -10,15 +10,11 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-        
-        
-        <import resource="classpath*:/WEB-INF/lib/Persistence-4.5.2.jar/database-context.xml" />
-
-	<!-- <beans:bean -->
-	<!-- class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></beans:bean> -->
-	<context:component-scan base-package="service" />
-	<context:component-scan base-package="repository" />
+    
 	<context:component-scan base-package="controller" />
+
+    <import resource="classpath:/security-context.xml" />
+
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -32,7 +28,7 @@
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:messages" />
 		<property name="defaultEncoding" value="UTF-8" />
-</bean>
+	</bean>
 
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
