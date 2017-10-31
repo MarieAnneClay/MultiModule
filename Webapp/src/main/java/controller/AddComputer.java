@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import util.ComputerValidator;
 import model.Company;
 import model.Computer;
 import service.ServiceCompany;
 import service.ServiceComputer;
+import util.ComputerValidator;
 
 @Controller
+// @RestController
 @RequestMapping("/addcomputer")
 public class AddComputer {
     private final ServiceComputer serviceComputer;

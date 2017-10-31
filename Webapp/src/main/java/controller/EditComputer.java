@@ -23,6 +23,7 @@ import util.ComputerValidator;
 
 @Controller
 @RequestMapping("/editcomputer")
+// @RestController
 public class EditComputer {
     private static final String VIEW = "EditComputer";
     private static final String VIEW_HOME = "dashboard";

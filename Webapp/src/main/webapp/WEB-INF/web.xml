@@ -24,8 +24,6 @@
 	<jsp-config>
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
-			<!-- <include-prelude>/WEB-INF/header.jsp</include-prelude> -->
-			<!-- <include-coda>/WEB-INF/footer.jsp</include-coda> -->
 		</jsp-property-group>
 	</jsp-config>
 	
@@ -70,26 +68,5 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	<!-- Loads Spring Security config file -->
-<!-- 	<context-param> -->
-<!-- 		<param-name>contextConfigLocation</param-name> -->
-<!-- 		<param-value> -->
-			
-<!--         /WEB-INF/classes/security-context.xml -->
-<!-- 		</param-value> -->
-<!-- 	</context-param> -->
-
-	<!-- Spring Security -->
-<!-- 	<filter> -->
-<!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
-<!-- 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy -->
-<!-- 		</filter-class> -->
-<!-- 	</filter> -->
-
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
-<!-- 		<url-pattern>/*</url-pattern> -->
-<!-- 	</filter-mapping> -->
 
 </web-app>
