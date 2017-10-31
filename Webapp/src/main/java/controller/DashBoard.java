@@ -31,7 +31,6 @@ import service.ServiceComputer;
 @Controller
 // @RestController
 public class DashBoard {
-    private final ServiceComputer serviceComputer;
     private final ServiceCompany serviceCompany;
     private static final String VIEW = "DashBoard";
     private static final String VIEW_HOME = "dashboard";
@@ -48,7 +47,6 @@ public class DashBoard {
     @Autowired
     public DashBoard(ServiceComputer serviceComputer, ServiceCompany serviceCompany) {
         super();
-        this.serviceComputer = serviceComputer;
         this.serviceCompany = serviceCompany;
     }
 
@@ -58,15 +56,14 @@ public class DashBoard {
             @RequestParam(value = "sort", defaultValue = "name") String sort, @RequestParam(value = "order", defaultValue = "DESC") String order)
             throws JsonParseException, JsonMappingException, IOException {
 
-        List<Computer> participantJsonList = mapper
-                .readValue(target.path("page/" + currentPage + "/search/" + search + "/numberOfComputerByPage/" + numberOfComputerByPage + "/sort/" + sort + "/order/" + order)
-                        .request(MediaType.APPLICATION_JSON).get(String.class), new TypeReference<List<Computer>>() {
-                        });
+        List<Computer> computers = mapper.readValue(target.path("page/" + currentPage + "/search/" + search + "/numberOfComputerByPage/" + numberOfComputerByPage + "/sort/" + sort + "/order/" + order)
+                .request(MediaType.APPLICATION_JSON).get(String.class), new TypeReference<List<Computer>>() {
+                });
         map.addAttribute("search", search);
         map.addAttribute("numberOfComputerByPage", numberOfComputerByPage);
         map.addAttribute("currentPage", currentPage);
         map.addAttribute("size", target.path("count/" + search).request(MediaType.APPLICATION_JSON).get(String.class));
-        map.addAttribute("computers", participantJsonList);
+        map.addAttribute("computers", computers);
         map.addAttribute("serviceCompany", serviceCompany);
 
         return VIEW;
@@ -76,7 +73,7 @@ public class DashBoard {
     // @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = { "/deleted" }, method = RequestMethod.POST)
     public String deleteComputers(@RequestParam(value = "selection") String idsSelects) throws ServletException {
-        serviceComputer.deleteComputer(idsSelects);
+        target.path("delete/" + idsSelects).request(MediaType.APPLICATION_JSON).delete();
         return "redirect:/" + VIEW_HOME;
 
     }

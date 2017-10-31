@@ -11,11 +11,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import model.Company;
 import model.Computer;
 import service.ServiceCompany;
 import service.ServiceComputer;
@@ -23,14 +28,16 @@ import util.Page;
 
 //@Controller
 @RestController
-public class WSDashBoard {
+public class WSAPI {
     private final ServiceComputer serviceComputer;
-    private static Logger LOGGER = Logger.getLogger(WSDashBoard.class.getName());
+    private final ServiceCompany serviceCompany;
+    private static Logger LOGGER = Logger.getLogger(WSAPI.class.getName());
 
     @Autowired
-    public WSDashBoard(ServiceComputer serviceComputer, ServiceCompany serviceCompany) {
+    public WSAPI(ServiceComputer serviceComputer, ServiceCompany serviceCompany) {
         super();
         this.serviceComputer = serviceComputer;
+        this.serviceCompany = serviceCompany;
     }
 
     // @SuppressWarnings("unchecked")
@@ -46,16 +53,15 @@ public class WSDashBoard {
         return new ResponseEntity<List<Computer>>(serviceComputer.findAll(), HttpStatus.OK);
     }
 
-    // @GetMapping("/wsdashboard/{id}")
-    // public ResponseEntity<Computer> getComputer(@PathVariable("id") Long id) {
-    //
-    // Computer computer = serviceComputer.getOne(id);
-    // if (computer == null) {
-    // return new ResponseEntity("No computer found for ID " + id,
-    // HttpStatus.NOT_FOUND);
-    // }
-    // return new ResponseEntity<Computer>(computer, HttpStatus.OK);
-    // }
+    @GetMapping("/wsdashboard/getcomputer/{id}")
+    public ResponseEntity<Computer> getComputer(@PathVariable("id") Long id) {
+
+        Computer computer = serviceComputer.getOne(id);
+        if (computer == null) {
+            return new ResponseEntity("No computer found for ID " + id, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Computer>(computer, HttpStatus.OK);
+    }
 
     // http://localhost:8080/Webapp/wsdashboard/page/0/search/
     // /numberOfComputerByPage/3/sort/name/order/ASC
@@ -68,6 +74,11 @@ public class WSDashBoard {
                 HttpStatus.OK);
     }
 
+    @RequestMapping(value = { "/wsdashboard/companies" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Company>> listOfCompanies() {
+        return new ResponseEntity<List<Company>>(serviceCompany.getAllCompanies(), HttpStatus.OK);
+    }
+
     @RequestMapping(value = { "/wsdashboard/count/{search}" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> countOfComputers(ModelMap map, @PathVariable(value = "search") String search) {
         return new ResponseEntity<Long>(serviceComputer.getCount(search), HttpStatus.OK);
@@ -77,6 +88,22 @@ public class WSDashBoard {
     public ResponseEntity deleteCustomer(@PathVariable String id) {
         serviceComputer.deleteComputer(id);
         return ResponseEntity.ok(null);
+    }
+
+    @PostMapping(value = "/wsaddcomputer/addcomputer")
+    public ResponseEntity createCustomer(@RequestBody Computer computer) {
+
+        serviceComputer.setComputer(computer);
+
+        return new ResponseEntity(computer, HttpStatus.OK);
+    }
+
+    @PutMapping("/wsaddcomputer/updatecomputer")
+    public ResponseEntity updateCustomer(@RequestBody Computer computer) {
+
+        serviceComputer.updateComputer(computer);
+
+        return new ResponseEntity(computer, HttpStatus.OK);
     }
 
 }
