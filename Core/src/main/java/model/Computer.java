@@ -10,15 +10,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 @Entity
 @Table(name = "computer")
+@XmlRootElement
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Computer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,23 +41,31 @@ public class Computer {
     @Nullable
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @Convert(converter = LocalDateConverter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate introduced;
     @Nullable
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @Convert(converter = LocalDateConverter.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate discontinued;
     @Nullable
+    // @JsonBackReference
     @Column(name = "company_id"/* , updatable = true */)
     private Long companyId;
 
     @Nullable
+    // @JsonBackReference
+    // @Json
+    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Formula("(SELECT c.name FROM company c WHERE c.id = company_id)")
     // @Cascade(CascadeType.REFRESH)
     private String companyName;
 
     /** DEFAULT CONSTRUCTOR. */
     public Computer() {
-        super();
     }
 
     /** CONSTRUCTOR with id.
