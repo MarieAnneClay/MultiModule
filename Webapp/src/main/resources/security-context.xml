@@ -13,6 +13,7 @@
 		<intercept-url pattern="/deleted" access="hasRole('ADMIN')" />
 		<http-basic />
 		<custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" />
+		<csrf disabled="true"/>
 
 	</http>
 

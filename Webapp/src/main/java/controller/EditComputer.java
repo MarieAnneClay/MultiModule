@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -45,6 +45,7 @@ public class EditComputer {
     static WebTarget target = client.target(getBaseURI());
     static ClientConfig cfg = new ClientConfig(GenericConverter.class);
     static ObjectMapper mapper = new ObjectMapper();
+    public static final String REST_SERVICE_URI = "http://localhost:8080/Webapp/wsdashboard";
 
     private static URI getBaseURI() {
         return UriBuilder.fromUri("http://localhost/Webapp/wsdashboard/").port(8080).build();
@@ -87,7 +88,10 @@ public class EditComputer {
             model.addAttribute("errors", sb.toString());
             return VIEW;
         } else {
-            target.path("updatecomputer").request().post(Entity.entity(computer, MediaType.APPLICATION_JSON));
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.postForLocation(REST_SERVICE_URI + "/updatecomputer", computer, Computer.class);
+            // target.path("updatecomputer").request().post(Entity.entity(computer,
+            // MediaType.APPLICATION_JSON));
             // serviceComputer.updateComputer(computer);
             return "redirect:/" + VIEW_HOME;
         }

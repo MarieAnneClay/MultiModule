@@ -69,6 +69,9 @@ public class WSAPI {
             "/wsdashboard/page/{currentPage}/search/{search}/numberOfComputerByPage/{numberOfComputerByPage}/sort/{sort}/order/{order}" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Computer>> listOfComputers(ModelMap map, @PathVariable(value = "search") String search, @PathVariable(value = "numberOfComputerByPage") int numberOfComputerByPage,
             @PathVariable(value = "currentPage") int currentPage, @PathVariable(value = "sort") String sort, @PathVariable(value = "order") String order) {
+        if (search == " ") {
+            search = "";
+        }
         return new ResponseEntity<List<Computer>>(serviceComputer
                 .getComputerByName(PageRequest.of(currentPage, numberOfComputerByPage, Page.getOrder(sort).equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, sort), search).getContent(),
                 HttpStatus.OK);
@@ -81,25 +84,29 @@ public class WSAPI {
 
     @RequestMapping(value = { "/wsdashboard/count/{search}" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> countOfComputers(ModelMap map, @PathVariable(value = "search") String search) {
+        if (search == " ") {
+            search = "";
+        }
+
         return new ResponseEntity<Long>(serviceComputer.getCount(search), HttpStatus.OK);
     }
 
     @DeleteMapping("/wsdashboard/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable String id) {
+    public ResponseEntity deleteComputer(@PathVariable String id) {
         serviceComputer.deleteComputer(id);
         return ResponseEntity.ok(null);
     }
 
-    @PostMapping(value = "/wsaddcomputer/addcomputer")
-    public ResponseEntity createCustomer(@RequestBody Computer computer) {
+    @PostMapping(value = "/wsdashboard/addcomputer")
+    public ResponseEntity createComputer(@RequestBody Computer computer) {
 
         serviceComputer.setComputer(computer);
 
         return new ResponseEntity(computer, HttpStatus.OK);
     }
 
-    @PutMapping("/wsaddcomputer/updatecomputer")
-    public ResponseEntity updateCustomer(@RequestBody Computer computer) {
+    @PutMapping("/wsdashboard/updatecomputer")
+    public ResponseEntity updateComputer(@RequestBody Computer computer) {
 
         serviceComputer.updateComputer(computer);
 
