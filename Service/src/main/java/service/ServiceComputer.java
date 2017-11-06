@@ -8,62 +8,62 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import DAOImpl.ComputerImpl;
 import model.Computer;
-import repository.ComputerRepository;
 
 /** Class of service for Computer DAO. */
 @Service
-@Transactional
 public class ServiceComputer {
     private static Logger LOGGER = Logger.getLogger(ServiceCompany.class.getName());
-    private final ComputerRepository computerRepository;
+    private final ComputerImpl computerImpl;
 
     @Autowired
-    public ServiceComputer(ComputerRepository computerRepository) {
+    public ServiceComputer(ComputerImpl computerImpl) {
         super();
-        this.computerRepository = computerRepository;
+        this.computerImpl = computerImpl;
     }
 
+    @Transactional(readOnly = true)
     public Long getCount(String name) {
-        return computerRepository.countByNameContainingOrCompanyNameContaining(name, name);
+        return computerImpl.getCount(name);
     }
 
     /** Function to get the computer.
      * @param name of the computer searched
      * @return A list of all the Computer in the database */
-    // public ArrayList<Computer> getComputerByName(String name, int
-    // numberOfComputerByPage, int currentPage, String sort, String order) {
+    @Transactional(readOnly = true)
     public Page<Computer> getComputerByName(Pageable page, String name) {
-        return computerRepository.findAllComputersByNameContainingOrCompanyNameContaining(page, name, name);
-        // return computerRepository.findComputerByNameAndCompany(name,
-        // numberOfComputerByPage, currentPage, sort, order);
+        return computerImpl.findAll(page, name);
     }
 
+    @Transactional(readOnly = true)
     public Computer getComputerById(Long id) {
-        return computerRepository.findById(id).get();
+        return computerImpl.findById(id);
     }
 
     /** Function which call the createComputer to create a computer in the database
      * with a SQL request.
      * @param computer computer to add to the database */
+    @Transactional
     public void setComputer(Computer result) {
-        computerRepository.saveAndFlush(result);
+        computerImpl.create(result);
     }
 
     /** Function which call the updateComputer to update a computer in the database
      * with a SQL request.
      * @param computer computer to update to the database */
+    @Transactional
     public void updateComputer(Computer result) {
-        computerRepository.saveAndFlush(result);
+        computerImpl.update(result);
     }
 
     /** Function which call the deleteComputer to delete a computer in the database
      * with a SQL request.
      * @param id id of the computer to delete in the database */
+    @Transactional
     public void deleteComputer(String ids) {
-        for (String id : ids.split(",")) {
-            computerRepository.deleteById(Long.parseLong(id));
-        }
+        computerImpl.deleteByIds(ids);
+
     }
 
 }

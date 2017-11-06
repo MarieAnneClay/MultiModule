@@ -7,30 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import DAOImpl.CompanyImpl;
 import model.Company;
-import repository.CompanyRepository;
 
 @Service
-@Transactional
 public class ServiceCompany {
     private static Logger LOGGER = Logger.getLogger(ServiceCompany.class.getName());
-    private final CompanyRepository companyRepository;
+    private final CompanyImpl companyImpl;
 
     @Autowired
-    public ServiceCompany(CompanyRepository companyRepository) {
+    public ServiceCompany(CompanyImpl companyImpl) {
         super();
-        this.companyRepository = companyRepository;
+        this.companyImpl = companyImpl;
     }
 
+    @Transactional(readOnly = true)
     public List<Company> getAllCompanies() {
-        return companyRepository.findAll();
+        return companyImpl.findAll();
     }
 
     /** Function search company by id in the database.
      * @param id id of the searched company
      * @return company searched */
+    @Transactional(readOnly = true)
     public Company getCompany(Long id) {
-        return companyRepository.getOne(id);
+        return companyImpl.getOne(id);
     }
 
 }
