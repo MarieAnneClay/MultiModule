@@ -33,6 +33,15 @@ public class DTOComputer {
     public DTOComputer() {
     }
 
+    public DTOComputer(String id, String name, String introduced, String discontinued, String companyId) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.introduced = introduced;
+        this.discontinued = discontinued;
+        this.companyId = companyId;
+    }
+
     public String getId() {
         return this.id;
     }
