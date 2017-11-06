@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.validation.Valid;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -22,23 +23,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import dto.DTOComputer;
+import mapper.MapperComputer;
 import model.Company;
 import model.Computer;
-import service.ServiceCompany;
 import service.ServiceComputer;
 import util.ComputerValidator;
 
 @Controller
 @RequestMapping("/editcomputer")
-// @RestController
 public class EditComputer {
+    private final ServiceComputer serviceComputer;
     private static final String VIEW = "EditComputer";
     private static final String VIEW_HOME = "dashboard";
     static org.glassfish.jersey.client.JerseyClient client = (org.glassfish.jersey.client.JerseyClient) ClientBuilder.newClient();
@@ -52,8 +53,9 @@ public class EditComputer {
     }
 
     @Autowired
-    public EditComputer(ServiceCompany serviceCompany, ServiceComputer serviceComputer) {
+    public EditComputer(ServiceComputer serviceComputer) {
         super();
+        this.serviceComputer = serviceComputer;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -72,7 +74,8 @@ public class EditComputer {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String updateComputer(Model model, @ModelAttribute("computerForm") Computer computer, BindingResult result) throws ServletException, JsonParseException, JsonMappingException, IOException {
+    public String updateComputer(Model model, @Valid @ModelAttribute("computerForm") DTOComputer computer, BindingResult result)
+            throws ServletException, JsonParseException, JsonMappingException, IOException {
         ComputerValidator computerValidator = new ComputerValidator();
         computerValidator.validate(computer, result);
 
@@ -88,11 +91,10 @@ public class EditComputer {
             model.addAttribute("errors", sb.toString());
             return VIEW;
         } else {
-            RestTemplate restTemplate = new RestTemplate();
-            restTemplate.postForLocation(REST_SERVICE_URI + "/updatecomputer", computer, Computer.class);
-            // target.path("updatecomputer").request().post(Entity.entity(computer,
-            // MediaType.APPLICATION_JSON));
-            // serviceComputer.updateComputer(computer);
+            // RestTemplate restTemplate = new RestTemplate();
+            // restTemplate.postForLocation(REST_SERVICE_URI + "/updatecomputer", computer,
+            // Computer.class);
+            serviceComputer.updateComputer(MapperComputer.toComputer(computer));
             return "redirect:/" + VIEW_HOME;
         }
 

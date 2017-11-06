@@ -1,5 +1,6 @@
 <%@ include file="staticPage/header.jsp"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <section id="main">
 	<div class="container">
 		<div class="row">
@@ -11,16 +12,19 @@
 							<label for="computerName"><spring:message code="label.name" /></label> <form:input
 							path="name"
 								type="text" class="form-control" id="computerName"
-								pattern="^[0-9a-zA-Zàâéèëêïîôùüç -]{1,60}$" name="computerName"
+								pattern="^[0-9a-zA-Zàâéèëêïîôùüç -_]{1,60}$" name="computerName"
 								placeholder="Computer name" required="true" value="${computer.getName()}"></form:input>
 						</div>
 						<div class="form-group">
-							<label for="introduced"><spring:message code="label.introduced" /></label> <form:input
+						
+							<label for="introduced"><spring:message code="label.introduced" /></label> 
+							<spring:message code="form.introduced.placeholder" var="introducedPlaceholder"/>
+							<form:input
 							path="introduced"
 								type="date"
 								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 								class="form-control" id="introduced" name="introduced"
-								placeholder="Introduced date AAAA-MM-DD" value="${computer.getIntroduced()}"></form:input>
+								placeholder="${introducedPlaceholder}" value="${computer.getIntroduced()}"></form:input>
 						</div>
 						<div class="form-group">
 							<label for="discontinued"><spring:message code="label.discontinued" /></label> <form:input

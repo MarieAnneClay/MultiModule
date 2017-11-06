@@ -24,9 +24,8 @@ import model.Company;
 import model.Computer;
 import service.ServiceCompany;
 import service.ServiceComputer;
-import util.Page;
+import util.Pagination;
 
-//@Controller
 @RestController
 public class WSAPI {
     private final ServiceComputer serviceComputer;
@@ -40,23 +39,17 @@ public class WSAPI {
         this.serviceCompany = serviceCompany;
     }
 
-    // @SuppressWarnings("unchecked")
     // @RequestMapping(value = { "/wsdashboard" }, method = RequestMethod.GET,
     // produces = MediaType.APPLICATION_JSON_VALUE)
-    // public List<Computer> listOfComputers() {
-    //
-    // return serviceComputer.findAll();
+    // public ResponseEntity<List<Computer>> listOfComputers() {
+    // return new ResponseEntity<List<Computer>>(serviceComputer.findAll(),
+    // HttpStatus.OK);
     // }
-
-    @RequestMapping(value = { "/wsdashboard" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Computer>> listOfComputers() {
-        return new ResponseEntity<List<Computer>>(serviceComputer.findAll(), HttpStatus.OK);
-    }
 
     @GetMapping("/wsdashboard/getcomputer/{id}")
     public ResponseEntity<Computer> getComputer(@PathVariable("id") Long id) {
 
-        Computer computer = serviceComputer.getOne(id);
+        Computer computer = serviceComputer.getComputerById(id);
         if (computer == null) {
             return new ResponseEntity("No computer found for ID " + id, HttpStatus.NOT_FOUND);
         }
@@ -73,16 +66,16 @@ public class WSAPI {
             search = "";
         }
         return new ResponseEntity<List<Computer>>(serviceComputer
-                .getComputerByName(PageRequest.of(currentPage, numberOfComputerByPage, Page.getOrder(sort).equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, sort), search).getContent(),
+                .getComputerByName(PageRequest.of(currentPage, numberOfComputerByPage, Pagination.getOrder(sort).equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, sort), search).getContent(),
                 HttpStatus.OK);
     }
 
-    @RequestMapping(value = { "/wsdashboard/companies" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = { "/wsdashboard/companies" }, method = RequestMethod.GET)
     public ResponseEntity<List<Company>> listOfCompanies() {
         return new ResponseEntity<List<Company>>(serviceCompany.getAllCompanies(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = { "/wsdashboard/count/{search}" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = { "/wsdashboard/count/{search}" }, method = RequestMethod.GET)
     public ResponseEntity<Long> countOfComputers(ModelMap map, @PathVariable(value = "search") String search) {
         if (search == " ") {
             search = "";

@@ -66,7 +66,7 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 							</span>
 <%-- 						</security:authorize> --%>
 						</th>
-					<th><a ${paramsFromRequest.overrideParam("sort", "name")}
+					<th><a ${paramsFromRequest.overrideParam("sort", "cr.name")}
 						${paramsFromRequest.overrideParam("order", orderName)}
 						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Computer
 							name</a></th>
@@ -81,7 +81,7 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Discontinued
 							date</a></th>
 					<th><a
-						${paramsFromRequest.overrideParam("sort", "companyName")}
+						${paramsFromRequest.overrideParam("sort", "cy.name")}
 						${paramsFromRequest.overrideParam("order", orderCompany)}
 						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Company</a></th>
 
@@ -98,16 +98,11 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 									value="${computer.id}">
 <%-- 							</security:authorize> --%>
 							</td>
-						<td><a
-							href="
-		   				<c:url value="/editcomputer">
-		   					<c:param name="computerId" value="${computer.id}"/>
-		   				</c:url>"
-							id="editComputer"> <span aria-hidden="true">${computer.name}</span>
+						<td><a href="/editcomputer?computerId=${computer.id}" id="editComputer" /> <span aria-hidden="true">${computer.name}</span>
 						</a></td>
 						<td>${computer.introduced}</td>
 						<td>${computer.discontinued}</td>
-						<td><c:out value="${computer.getCompanyName()}" /></td>
+						<td><c:out value="${computer.companyId != null ? serviceCompany.getCompany(computer.companyId).getName() : ''}" /></td>
 <%-- 						<td><c:out value="${computer.getCompany().getName()}" /></td> --%>
 					</tr>
 				</c:forEach>

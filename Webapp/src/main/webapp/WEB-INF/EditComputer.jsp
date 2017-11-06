@@ -15,7 +15,7 @@
 							<label for="computerName"><spring:message code="label.name" /></label> <form:input path="name"
 								type="text" class="form-control" id="computerName"
 								name="computerName" placeholder="Computer name"
-								pattern="^[0-9a-zA-Zàâéèëêïîôùüç -]{1,60}$"
+								pattern="^[0-9a-zA-Zàâéèëêïîôùüç -_]{1,60}$"
 								value="${computer.getName()}" required="true"></form:input>
 						</div>
 						<div class="form-group">

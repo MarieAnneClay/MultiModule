@@ -16,14 +16,25 @@
 		<csrf disabled="true"/>
 
 	</http>
+	
+<!-- 		<authentication-manager> -->
+<!-- 		<authentication-provider user-service-ref="UserService"> -->
+<!-- 			<password-encoder ref="passwordEncoder"> -->
+<!-- 			</password-encoder> -->
+<!-- 		</authentication-provider> -->
+<!-- 	</authentication-manager> -->
+
+<!-- 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"> -->
+<!-- 		<beans:constructor-arg value="11" /> -->
+<!-- 	</beans:bean> -->
 
 	<!-- Select users and user_roles from database -->
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service id="userService"
 				data-source-ref="dataSource"
-				users-by-username-query="SELECT username,password, active FROM UserDAO WHERE username=?"
-				authorities-by-username-query="SELECT username, name FROM UserDAO INNER JOIN role ON role.id = UserDAO.role_id WHERE username =?  " />
+				users-by-username-query="SELECT username,password, active FROM user WHERE username=?"
+				authorities-by-username-query="SELECT username, name FROM user INNER JOIN role ON role.id = user.role_id WHERE username =?  " />
 		</authentication-provider>
 	</authentication-manager>
 
