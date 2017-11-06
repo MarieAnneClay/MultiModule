@@ -13,7 +13,7 @@ public class ValidationComputer {
         if (name == null || name.trim().length() == 0) {
             return "The name of the computer can't be empty.";
         }
-        if (name.matches("^[0-9a-zA-Zàâéèëêïîôùüç -]{1,60}$") == false) {
+        if (name.matches("^[0-9a-zA-Zàâéèëêïîôùüç -_]{1,60}$") == false) {
             return "The name of the computer is invalid. It can contains number, uppercase, space and accent with maximum 60 characters.";
         }
         return null;
@@ -23,12 +23,21 @@ public class ValidationComputer {
      * @param date string
      * @throws Exception */
     public static String validationDate(String date) {
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat fmtEN = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat fmtFR = new SimpleDateFormat("dd/mm/yyyy");
         if (date != null && date.trim().length() != 0) {
+            if (date.contains("-")) {
+                try {
+                    fmtEN.parse(date);
+                } catch (ParseException e) {
+                    return "The format of the date is invalid.";
+
+                }
+            }
             try {
-                fmt.parse(date);
-            } catch (ParseException e) {
-                return "The format of the date is invalid.";
+                fmtFR.parse(date);
+            } catch (ParseException ex) {
+                return "Le format de la date n'est pas valide.";
             }
         }
         return null;

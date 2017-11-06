@@ -2,8 +2,8 @@ package util;
 
 import java.util.logging.Logger;
 
-public class Page {
-    private static Logger LOGGER = Logger.getLogger(Page.class.getName());
+public class Pagination {
+    private static Logger LOGGER = Logger.getLogger(Pagination.class.getName());
     private static String orderName;
     private static String orderIntroduced;
     private static String orderDiscontinued;
@@ -18,7 +18,7 @@ public class Page {
 
     public static String getOrder(String sort) {
         switch (sort) {
-        case "name":
+        case "cr.name":
             orderName = reverse(orderName);
             return orderName;
 
@@ -30,7 +30,7 @@ public class Page {
             orderDiscontinued = reverse(orderDiscontinued);
             return orderDiscontinued;
 
-        case "company.name":
+        case "cy.name":
             orderCompany = reverse(orderCompany);
             return orderCompany;
 
