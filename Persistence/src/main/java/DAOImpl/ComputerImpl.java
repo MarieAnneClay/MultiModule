@@ -58,7 +58,6 @@ public class ComputerImpl implements ComputerDAO {
         String selectFilter = " SELECT * FROM computer cr LEFT JOIN company cy ON cy.id = cr.company_id WHERE cr.name LIKE '%" + name + "%' OR cy.name LIKE '%" + name + "%' ORDER BY " + page.getSort()
                 + " LIMIT " + start + ", " + end;
         selectFilter = selectFilter.replace(":", "");
-        LOGGER.warning(selectFilter);
         try (Connection connexion = connectionManager.getConnection();
                 PreparedStatement preparedStatement = initPreparedStatement(connexion, selectFilter);
                 ResultSet resultSet = preparedStatement.executeQuery();) {
