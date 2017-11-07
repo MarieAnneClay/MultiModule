@@ -10,17 +10,23 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 
 <section id="main">
 	<div class="container">
+					<a href="?lang=en"><spring:message code="label.en" /></a> | <a
+					href="?lang=fr"><spring:message code="label.fr" /></a>
 		<h1 id="dashboardTitle">
 			<c:out value="${size}" />
 			<spring:message code="label.size" />
 		</h1>
 		<div id="actions" class="form-horizontal">
 			<div class="pull-left">
+			<spring:message code="search"
+								var="search" />
+								<spring:message code="filter"
+								var="filter" />
 				<form id="searchForm" action="#" method="GET" class="form-inline">
 
 					<input type="search" id="searchbox" name="search"
-						class="form-control" placeholder="Search name" value="${search}" />
-					<input type="submit" id="searchsubmit" value="Filter by name"
+						class="form-control" placeholder="${search}" value="${search}" />
+					<input type="submit" id="searchsubmit" value="${filter}"
 						class="btn btn-primary" />
 				</form>
 			</div>
@@ -32,11 +38,8 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 						code="label.add" />
 				</a>
 
-
-<%-- 				<security:authorize access="hasRole('ROLE_ADMIN')"> --%>
 					<a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">View</a>
-<%-- 				</security:authorize> --%>
 
 
 			</div>
@@ -45,7 +48,6 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 
 	<form id="deleteForm" action="deleted" method="POST">
 		<input type="hidden" name="selection" value="">
-<%-- 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 	</form>
 
 	<div class="container" style="margin-top: 10px;">
@@ -56,34 +58,28 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 					<!-- Table header for Computer Name -->
 
 					<th class="editMode" style="width: 60px; height: 22px;">
-<%-- 					<security:authorize --%>
-<%-- 							access="hasRole('ADMIN') and isAuthenticated()"> --%>
 							<input type="checkbox" id="selectall" />
 							<span style="vertical-align: top;"> - <a href="#"
 								id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 							</span>
-<%-- 						</security:authorize> --%>
 						</th>
-					<th><a ${paramsFromRequest.overrideParam("sort", "cr.name")}
+					<th><a ${paramsFromRequest.overrideParam("sort", "name")}
 						${paramsFromRequest.overrideParam("order", orderName)}
-						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Computer
-							name</a></th>
+						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}"><spring:message code="computer.name" /></a></th>
 					<th><a
 						${paramsFromRequest.overrideParam("sort", "introduced")}
 						${paramsFromRequest.overrideParam("order", orderIntroduced)}
-						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Introduced
-							date</a></th>
+						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}"><spring:message code="computer.introduced" /></a></th>
 					<th><a
 						${paramsFromRequest.overrideParam("sort", "discontinued")}
 						${paramsFromRequest.overrideParam("order", orderDiscontinued)}
-						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Discontinued
-							date</a></th>
+						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}"><spring:message code="computer.discontinued" /></a></th>
 					<th><a
-						${paramsFromRequest.overrideParam("sort", "cy.name")}
+						${paramsFromRequest.overrideParam("sort", "companyName")}
 						${paramsFromRequest.overrideParam("order", orderCompany)}
-						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}">Company</a></th>
+						href="${pageContext.request.contextPath}/dashboard${linkGenerated}${paramsFromRequest.buildUrl()}"><spring:message code="computer.companyName" /></a></th>
 
 				</tr>
 			</thead>
@@ -92,18 +88,19 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 				<c:forEach items="${computers}" var="computer">
 					<tr>
 						<td class="editMode">
-<%-- 						<security:authorize --%>
-<%-- 								access="hasRole('ADMIN') and isAuthenticated()"> --%>
 								<input type="checkbox" name="cb" class="cb"
 									value="${computer.id}">
-<%-- 							</security:authorize> --%>
 							</td>
-						<td><a href="/editcomputer?computerId=${computer.id}" id="editComputer" /> <span aria-hidden="true">${computer.name}</span>
-						</a></td>
+						<td>
+						<a href="/Webapp/editcomputer?computerId=${computer.id}" id="editComputer" /> <span aria-hidden="true">${computer.name}</span>
+						</a>
+<%-- 						<a href="/editcomputer?computerId=${computer.id}" id="editComputer" /> <span aria-hidden="true">${computer.name}</span> --%>
+<!-- 						</a> -->
+						</td>
 						<td>${computer.introduced}</td>
 						<td>${computer.discontinued}</td>
 						<td><c:out value="${computer.companyId != null ? serviceCompany.getCompany(computer.companyId).getName() : ''}" /></td>
-<%-- 						<td><c:out value="${computer.getCompany().getName()}" /></td> --%>
+
 					</tr>
 				</c:forEach>
 			</tbody>

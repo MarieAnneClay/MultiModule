@@ -9,6 +9,6 @@
 	<context:component-scan base-package="service" />
 	<context:annotation-config />
     <import resource="classpath:/database-context.xml" />
-<!--     <import resource="classpath:/security-context.xml" /> -->
+    <import resource="classpath:/security-context.xml" />
 
 </beans>

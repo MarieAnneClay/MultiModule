@@ -46,7 +46,7 @@ public class WSAPI {
     // HttpStatus.OK);
     // }
 
-    @GetMapping("/wsdashboard/getcomputer/{id}")
+    @GetMapping(value = "/wsdashboard/getcomputer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Computer> getComputer(@PathVariable("id") Long id) {
 
         Computer computer = serviceComputer.getComputerById(id);

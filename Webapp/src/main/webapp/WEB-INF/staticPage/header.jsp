@@ -29,40 +29,8 @@
 				<a class="navbar-brand" href="<c:url value="/dashboard"/>">
 					Application - <spring:message code="label.title" />
 				</a>
-				<!-- 				<div id="langBox"><select id="lang" name="lang">  -->
-				<%--  						<option value="en" selected><spring:message  --%>
-				<%--  									code="label.en" /></option>  --%>
-				<%--  						<option value="fr"><spring:message  --%>
-				<%--  									code="label.fr" /></option>  --%>
-
-				<!-- 					</select> -->
-				<!-- 				</div> -->
-				<spring:message code="label.language" />
-				: <a href="?lang=en"><spring:message code="label.en" /></a> | <a
-					href="?lang=fr"><spring:message code="label.fr" /></a>
-
-				<security:authorize access="hasRole('ROLE_USER')">
-					<!-- For login user -->
-					<c:url value="/j_spring_securityurity_logout" var="logoutUrl" />
-					<form action="${logoutUrl}" method="post" id="logoutForm">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-					</form>
-					<script>
-						function formSubmit() {
-							document.getElementById("logoutForm").submit();
-						}
-					</script>
-
-					<c:if test="${pageContext.request.userPrincipal.name != null}">
-						<h2>
-							User : ${pageContext.request.userPrincipal.name} | <a
-								href="javascript:formSubmit()"> Logout</a>
-						</h2>
-					</c:if>
 
 
-				</security:authorize>
 			</div>
 		</div>
 

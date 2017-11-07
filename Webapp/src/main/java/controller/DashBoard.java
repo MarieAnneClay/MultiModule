@@ -57,7 +57,7 @@ public class DashBoard {
     @RequestMapping(value = { "", "/", "/dashboard" }, method = RequestMethod.GET)
     public String listOfComputers(ModelMap map, @RequestParam(value = "search", defaultValue = "") String search,
             @RequestParam(value = "numberOfComputerByPage", defaultValue = "10") int numberOfComputerByPage, @RequestParam(value = "currentPage", defaultValue = "0") int currentPage,
-            @RequestParam(value = "sort", defaultValue = "cr.name") String sort, @RequestParam(value = "order", defaultValue = "DESC") String order,
+            @RequestParam(value = "sort", defaultValue = "name") String sort, @RequestParam(value = "order", defaultValue = "DESC") String order,
             @RequestParam(value = "lang", defaultValue = "eng") String lang) throws JsonParseException, JsonMappingException, IOException {
 
         Page<Computer> page = serviceComputer
