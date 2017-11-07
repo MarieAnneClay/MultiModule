@@ -6,8 +6,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
-/** DTO representation of a {@link cdb.model.Computer}.
- * @author aserre */
 public class DTOComputer {
     private String id;
 

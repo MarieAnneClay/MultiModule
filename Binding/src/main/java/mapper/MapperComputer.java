@@ -6,24 +6,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import DAOImpl.ComputerImpl;
 import dto.DTOComputer;
 import model.Computer;
 
 @Component
 public class MapperComputer {
     private static org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MapperComputer.class);
-    private static ComputerImpl dao;
     private static final DateTimeFormatter FMT_EN = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter FMT_FR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-    @Autowired
-    private MapperComputer(ComputerImpl dao) {
-        this.dao = dao;
-    }
 
     public MapperComputer() {
         // TODO Auto-generated constructor stub
@@ -58,7 +50,7 @@ public class MapperComputer {
         }
 
         try {
-            returnComputer.setCompanyName(dao.findById(computer.getCompanyId()).getName());
+            returnComputer.setCompanyName(computer.getCompanyName());
         } catch (NullPointerException e) {
             returnComputer.setCompanyName(null);
         }

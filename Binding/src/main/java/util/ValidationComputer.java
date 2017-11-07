@@ -33,12 +33,14 @@ public class ValidationComputer {
                     return "The format of the date is invalid.";
 
                 }
+            } else {
+                try {
+                    fmtFR.parse(date);
+                } catch (ParseException ex) {
+                    return "Le format de la date n'est pas valide.";
+                }
             }
-            try {
-                fmtFR.parse(date);
-            } catch (ParseException ex) {
-                return "Le format de la date n'est pas valide.";
-            }
+
         }
         return null;
     }

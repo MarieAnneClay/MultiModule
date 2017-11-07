@@ -18,7 +18,7 @@ public class Pagination {
 
     public static String getOrder(String sort) {
         switch (sort) {
-        case "cr.name":
+        case "name":
             orderName = reverse(orderName);
             return orderName;
 
@@ -30,7 +30,7 @@ public class Pagination {
             orderDiscontinued = reverse(orderDiscontinued);
             return orderDiscontinued;
 
-        case "cy.name":
+        case "companyName":
             orderCompany = reverse(orderCompany);
             return orderCompany;
 
