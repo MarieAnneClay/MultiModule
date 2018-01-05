@@ -25,7 +25,6 @@
 <!-- Size -->
 <c:set var="paramNameNumberOfComputerByPage"
 	value="numberOfComputerByPage" />
-<c:set var="tableOfSize" value="${[10,50,100]}" />
 <!-- Page -->
 <c:set var="url" value="dashboard" />
 <c:set var="paramNameCurrentPage" value="currentPage" />
@@ -112,11 +111,16 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 
 <!-- size -->
 <div class="btn-group btn-group-sm pull-right" role="group">
-	<c:forEach var="currentSize" items="${tableOfSize}">
-        ${paramsFromRequest.overrideParam(paramNameNumberOfComputerByPage, currentSize)}
         ${paramsFromRequest.overrideParam(paramNameCurrentPage, 0)}
+<%--         ${paramsFromRequest.overrideParam(paramNameNumberOfComputerByPage, currentSize)} --%>
+
         <a
 			href="${pageContext.request.contextPath}/${url}${linkGenerated}${paramsFromRequest.buildUrl()}"
-			class="btn btn-default <c:if test="${numberOfComputerByPage == currentSize}">active</c:if>">${currentSize}</a>
-	</c:forEach>
+			class="btn btn-default <c:if test="${numberOfComputerByPage == currentSize}">active</c:if>">10</a>
+           <a
+   href="${pageContext.request.contextPath}/${url}${linkGenerated}${paramsFromRequest.buildUrl()}"
+   class="btn btn-default <c:if test="${numberOfComputerByPage == currentSize}">active</c:if>">50</a>
+           <a
+   href="${pageContext.request.contextPath}/${url}${linkGenerated}${paramsFromRequest.buildUrl()}"
+   class="btn btn-default <c:if test="${numberOfComputerByPage == currentSize}">active</c:if>">100</a>
 </div>

@@ -47,7 +47,10 @@ public class ServiceComputer {
 
     @Transactional(readOnly = true)
     public Computer getComputerById(Long id) {
+      if(dao.existsById(id)) {
         return dao.findById(id).get();
+      }
+      return null;
     }
 
     /** Function which call the createComputer to create a computer in the database
@@ -73,12 +76,13 @@ public class ServiceComputer {
      * @param id id of the computer to delete in the database */
     @Transactional
     public void deleteComputer(String ids) {
+      System.out.println(ids);
         String idS[] = ids.split(",");
         for (String id : idS) {
-            dao.deleteById(Long.getLong(id));
+          System.out.println(id);
+          System.out.println(idS.length);
+            dao.deleteById(Long.parseLong(id));
         }
-
-        // dao.deleteByIds(ids);
 
     }
 

@@ -99,7 +99,7 @@ ${paramsFromRequest.getParameterFromRequest(pageContext.request)}
 						</td>
 						<td>${computer.introduced}</td>
 						<td>${computer.discontinued}</td>
-						<td><c:out value="${computer.companyId != null ? serviceCompany.getCompany(computer.companyId).getName() : ''}" /></td>
+<%-- 						<td><c:out value="${computer.companyId != null ? serviceCompany.getCompany(computer.companyId).getName() : ''}" /></td> --%>
 
 					</tr>
 				</c:forEach>

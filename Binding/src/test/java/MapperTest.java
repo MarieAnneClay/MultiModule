@@ -62,7 +62,7 @@ public class MapperTest extends TestCase {
         assertEquals(computer.getName(), test.getName());
         assertEquals(computer.getIntroduced(), test.getIntroduced());
         assertEquals(computer.getDiscontinued(), test.getDiscontinued());
-        assertEquals(computer.getCompanyId(), test.getCompanyId());
+        assertEquals(computer.getCompany(), test.getCompany());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class MapperTest extends TestCase {
         assertEquals(computer.getName(), test.getName());
         assertEquals(computer.getIntroduced(), test.getIntroduced());
         assertEquals(computer.getDiscontinued(), test.getDiscontinued());
-        assertEquals(computer.getCompanyId(), test.getCompanyId());
+        assertEquals(computer.getCompany(), test.getCompany());
 
     }
 

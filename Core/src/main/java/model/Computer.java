@@ -21,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -42,18 +43,16 @@ public class Computer {
     @Nullable
     @DateTimeFormat(iso = ISO.DATE)
     @Convert(converter = LocalDateConverter.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate introduced;
     @Nullable
     @DateTimeFormat(iso = ISO.DATE)
     @Convert(converter = LocalDateConverter.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate discontinued;
     @Nullable
     @Column(name = "company_id")
-    private Long companyId;
+    private Long company;
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     @Formula("(SELECT c.name FROM company c WHERE c.id = company_id)")
@@ -104,7 +103,7 @@ public class Computer {
         this.name = name;
         this.introduced = introduced;
         this.discontinued = discontinued;
-        this.companyId = companyId;
+        this.company = companyId;
     }
 
     /** CONSTRUCTOR with id.
@@ -153,12 +152,12 @@ public class Computer {
         this.discontinued = discontinued;
     }
 
-    public Long getCompanyId() {
-        return companyId;
+    public Long getCompany() {
+        return company;
     }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setCompany(Long companyId) {
+        this.company = companyId;
     }
 
 }

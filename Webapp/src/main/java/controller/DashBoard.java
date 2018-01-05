@@ -44,7 +44,7 @@ public class DashBoard {
     static ObjectMapper mapper = new ObjectMapper();
 
     private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://localhost/Webapp/wsdashboard/").port(8080).build();
+        return UriBuilder.fromUri("http://localhost/Webapp/api/").port(8080).build();
     }
 
     @Autowired
@@ -83,7 +83,7 @@ public class DashBoard {
 
     @RequestMapping(value = { "/deleted" }, method = RequestMethod.POST)
     public String deleteComputers(@RequestParam(value = "selection") String idsSelects) throws ServletException {
-        target.path("delete/" + idsSelects).request(MediaType.APPLICATION_JSON).delete();
+        target.path("computers/" + idsSelects).request(MediaType.APPLICATION_JSON).delete();
         return "redirect:/" + VIEW_HOME;
 
     }
